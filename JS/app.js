@@ -1,21 +1,17 @@
+
 gsap.registerPlugin(ScrollTrigger);
 
-document.addEventListener('DOMContentLoaded', () => {
+let sections = gsap.utils.toArray("section");
 
-    const sections = gsap.utils.toArray('section');
-
-    let scrollTween = gsap.to('.wrapper', {
-        xPercent: -100,
-        x: () => window.innerWidth,
-        ease: 'none',
-        scrollTrigger: {
-            trigger: '.wrapper',
-            pin: true,
-            scrub: 0.5,
-            start: 'top top',
-            end: 2000,
-        }
-    })
-
-})
-
+gsap.to('.wrapper', {
+  xPercent: -100 + ('.wrapper'.length - 1),
+  x: () => window.innerWidth,
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".wrapper",
+    pin: true,
+    scrub: 1,
+    snap: 1 / (sections.length - 1),
+    end: () => "+=" + document.querySelector(".wrapper").offsetWidth
+  }
+});
